@@ -16,6 +16,12 @@ export function MovieCard({ title, description, programType, releaseYear, images
 
   return (
     <div className={styles.movieCardContainer} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+      <img
+        className={styles.movieImage}
+        src={imageUrl}
+        alt={title}
+      />
+      
       <div className={styles.movieInfo}>
         <h2>{title}</h2>
         {isHovered && (
@@ -26,11 +32,7 @@ export function MovieCard({ title, description, programType, releaseYear, images
           </div>
         )}
       </div>
-      <img
-        className={styles.movieImage}
-        src={imageUrl}
-        alt={title}
-      />
+      
     </div>
   );
 }
