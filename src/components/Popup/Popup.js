@@ -1,15 +1,31 @@
 import React from 'react';
-import styles from './Popup.module.css';
+import { useSelector, useDispatch } from 'react-redux';
+import { closePopup } from '../../redux/features/popUp/popupSlice';
 
-const Popup = ({ title, description, programType, releaseYear }) => {
+function Popup() {
+
+  const { isOpen, movie } = useSelector(state => state.popup);
+  const dispatch = useDispatch();
+
+  const handleClose = () => {
+    dispatch(closePopup());
+  };
+
+  if (!isOpen || !movie) {
+    return null;
+  }
+
   return (
-    <div className={styles.popupContent}>
-      <h2>{title}</h2>
-      <p>{description}</p>
-      <p>Program Type: {programType}</p>
-      <p>Release Year: {releaseYear}</p>
+    <div className="popup">
+      <div className="popup-inner">
+        <h2>{movie.title}</h2>
+        <p>{movie.description}</p>
+        <p>Release Year: {movie.releaseYear}</p>
+        <img src={movie.images['Poster Art'].url} alt={movie.title} />
+        <button onClick={handleClose}>Close</button>
+      </div>
     </div>
   );
-};
+}
 
 export default Popup;

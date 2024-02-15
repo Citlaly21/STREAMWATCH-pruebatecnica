@@ -1,17 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { MovieCard } from "../MovieCard/MovieCard";
 import { useLocation } from "react-router-dom";
 import { setResultsPerPage, goToNextPage, goToPreviousPage } from '../../redux/features/movies/moviesSlice';
-import moviesData from '../../data/movies.json';
+import Popup from '../Popup/Popup';
 
 export function MoviesGrid() {
   const mediaType = useSelector((state) => state.mediaType);
-  const movies = moviesData.entries.filter(movie => movie.programType === mediaType);
   const location = useLocation();
   const dispatch = useDispatch();
   const { entries, page, resultsPerPage } = useSelector((state) => state.movies);
   
+  const [showPopup, setShowPopup] = useState(false);
+  const [popupData, setPopupData] = useState(null);
 
   const filteredMovies = mediaType === 'movies'
     ? entries.filter(movie => movie.programType === 'movie' && movie.releaseYear >= 2010)
@@ -32,6 +33,15 @@ export function MoviesGrid() {
       dispatch(goToNextPage());
     }
   };
+  const handleMovieClick = (movie) => {
+    setPopupData(movie);
+    setShowPopup(true);
+  };
+
+  const handleClosePopup = () => {
+    setShowPopup(false);
+    setPopupData(null);
+  };
 
   return (
     <div>
@@ -48,10 +58,26 @@ export function MoviesGrid() {
           <MovieCard
             key={movie.title}
             title={movie.title}
+            description={movie.description}
+            programType={movie.programType}
+            releaseYear={movie.releaseYear}
             images={movie.images}
+            onClick={() => handleMovieClick(movie)} 
           />
         ))}
       </ul>
+
+
+      {showPopup && popupData && (
+        <Popup
+          title={popupData.title}
+          description={popupData.description}
+          releaseYear={popupData.releaseYear}
+          posterArtUrl={popupData.images['Poster Art'].url}
+          onClose={handleClosePopup}
+        />
+      )}
+
       <div style={{ marginTop: '20px', textAlign: 'center' }}>
         <button onClick={() => changePage(page - 1)} style={{ backgroundColor: '#007bff', color: 'white', padding: '10px 20px', border: 'none', borderRadius: '5px', marginRight: '10px' }}>Página Anterior</button>
         <button onClick={() => changePage(page + 1)} style={{ backgroundColor: '#007bff', color: 'white', padding: '10px 20px', border: 'none', borderRadius: '5px' }}>Próxima Página</button>

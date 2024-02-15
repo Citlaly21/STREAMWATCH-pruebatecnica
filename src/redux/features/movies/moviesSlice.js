@@ -1,4 +1,4 @@
-// src/features/movies/moviesSlice.js
+
 import { createSlice } from '@reduxjs/toolkit';
 import moviesData from '../../../data/movies.json';
 
