@@ -6,6 +6,7 @@ export function MovieCard({ title, description, programType, releaseYear, images
 
   const imageUrl = images && images["Poster Art"] && images["Poster Art"].url;
 
+  //
   const handleMouseEnter = () => {
     setIsHovered(true);
   };

@@ -8,7 +8,7 @@ const moviesSlice = createSlice({
     entries: moviesData.entries,
     page: 1,
     resultsPerPage: 10,
-    type: 'movies', // Películas por defecto
+    type: 'movies', 
   },
   reducers: {
     setMovies: (state, action) => {
