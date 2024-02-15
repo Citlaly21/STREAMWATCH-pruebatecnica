@@ -1,25 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+import react from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { Home } from './components/Home/Home';
+import { MoviesGrid } from './components/MoviesGrid/MoviesGrid';
+import moviesData from './data/movies.json';
+import styles from './App.module.css';
+import { useSelector } from 'react-redux';
+import { setMediaType } from './redux/features/mediaType/mediaTypeSlice';
 
-function App() {
+export function App() {
+  const [type, setType] =  useSelector((state) => state.mediaType);
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div>
+        <header>
+          <h1 className={styles.title}>STREAMWATCH</h1>
+        </header>
+        <main>
+          <Routes>
+            <Route
+              path="/"
+              element={<Home type={type} setType={setType} />}
+            />
+            <Route
+              path="/movies"
+              element={<MoviesGrid movies={moviesData.entries.filter(movie => movie.programType === 'movie')} />}
+            />
+            <Route
+              path="/series"
+              element={<MoviesGrid movies={moviesData.entries.filter(movie => movie.programType === 'series')} />}
+            />
+          </Routes>
+        </main>
+      </div>
+    </Router>
   );
 }
-
-export default App;

@@ -1,0 +1,17 @@
+.popupContent {
+    background-color: rgba(255, 255, 255, 0.9); /* Fondo blanco opaco */
+    border-radius: 5px;
+    padding: 10px;
+    max-width: 200px; /* Ancho máximo del cuadro */
+  }
+  
+  .popupContent h2 {
+    font-size: 1rem;
+    margin-bottom: 5px;
+  }
+  
+  .popupContent p {
+    font-size: 0.8rem;
+    margin-bottom: 3px;
+  }
+  

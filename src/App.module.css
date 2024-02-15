@@ -1,0 +1,6 @@
+.title {
+  text-align: center;
+  font-size: 3rem;
+  color: #00a8e1; /* Color del texto */
+  text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5); /* Sombra del texto */
+}
